@@ -69,6 +69,53 @@ Result<ZStringView> Badges::getDescription(ZStringView id) {
     return geode::Ok(badgeIter->second.description);
 }
 
+void Badges::setCommentColor(ZStringView id, cocos2d::ccColor3B color) {
+    auto badgeIter = m_badges.find(id);
+    if (badgeIter == m_badges.end()) return;
+    badgeIter->second.color = color;
+}
+
+Result<cocos2d::ccColor3B> Badges::getCommentColor(ZStringView id) {
+    auto badgeIter = m_badges.find(id);
+    if (badgeIter == m_badges.end()) return geode::Err("Badge not found for id: {}", id);
+    if (!badgeIter->second.color) return geode::Err("No color set for badge: {}", id);
+    return geode::Ok(*badgeIter->second.color);
+}
+
+void Badges::setPriority(ZStringView id, int priority) {
+    auto badgeIter = m_badges.find(id);
+    if (badgeIter == m_badges.end()) return;
+    badgeIter->second.priority = priority;
+}
+
+Result<int> Badges::getPriority(ZStringView id) {
+    auto badgeIter = m_badges.find(id);
+    if (badgeIter == m_badges.end()) return geode::Err("Badge not found for id: {}", id);
+    return geode::Ok(badgeIter->second.priority);
+}
+
+std::optional<cocos2d::ccColor3B> Badges::resolveCommentColor(const std::vector<alpha::badgify::BadgeInfo*>& badges) {
+    alpha::badgify::BadgeInfo* elder = nullptr;
+    alpha::badgify::BadgeInfo* mod = nullptr;
+    alpha::badgify::BadgeInfo* leaderboard = nullptr;
+    alpha::badgify::BadgeInfo* bestCustom = nullptr;
+
+    for (auto info : badges) {
+        if (info->id == "elder-moderator"_spr) elder = info;
+        else if (info->id == "moderator"_spr) mod = info;
+        else if (info->id == "leaderboard-moderator"_spr) leaderboard = info;
+        else if (info->color && (!bestCustom || info->priority > bestCustom->priority)) {
+            bestCustom = info;
+        }
+    }
+
+    if (elder && elder->color) return elder->color;
+    if (mod && mod->color) return mod->color;
+    if (leaderboard && leaderboard->color) return leaderboard->color;
+    if (bestCustom) return bestCustom->color;
+    return std::nullopt;
+}
+
 void Badges::setProfileCallback(ZStringView id, alpha::badgify::ProfileCallback onProfile) {
     auto badgeIter = m_badges.find(id);
     if (badgeIter == m_badges.end()) return;

@@ -27,7 +27,10 @@ void BadgesCommentCell::loadFromComment(GJComment* comment) {
     fields->m_usernameNode = fields->m_usernameMenu->getChildByID("username-button");
     if (!fields->m_usernameNode) return;
 
-    fields->m_usernameNode->setZOrder(-2);
+    fields->m_commentNode = typeinfo_cast<CCLabelBMFont*>(mainMenu->getParent()->getChildByID("comment-text-label"));
+    if (!fields->m_commentNode) return;
+
+    fields->m_originalColor = fields->m_commentNode->getColor();
 
     fields->m_badgeNode = CCNode::create();
     fields->m_badgeNode->setID("badges-container"_spr);
@@ -91,6 +94,8 @@ void BadgesCommentCell::addBadge(alpha::badgify::BadgeInfo* info, CCNode* badgeN
     if (fields->m_badges.size() <= 3) {
         addToBadgeContainer(info, badgeNode);
     }
+
+    updateColor();
 }
 
 void BadgesCommentCell::removeBadge(alpha::badgify::BadgeInfo* info) {
@@ -101,6 +106,17 @@ void BadgesCommentCell::removeBadge(alpha::badgify::BadgeInfo* info) {
 
     setupBadges();
     updateBadges();
+    updateColor();
+}
+
+void BadgesCommentCell::updateColor() {
+    auto fields = m_fields.self();
+    if (!fields->m_canAddBadge) return;
+
+    auto color = Badges::get()->resolveCommentColor(fields->m_badges).value_or(fields->m_originalColor);
+
+    m_comment->m_color = color;
+    fields->m_commentNode->setColor(color);
 }
 
 void BadgesCommentCell::updateBadges() {

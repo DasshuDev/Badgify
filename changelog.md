@@ -1,3 +1,7 @@
+# 1.0.7
+- Add badge Priority field per badge
+- Add Comment Color field per badge
+
 # 1.0.6
 - Fix a bug causing badges to not load if a profile's info is cached
 - Fix some edge cases where a badge should be able to be added but wouldn't

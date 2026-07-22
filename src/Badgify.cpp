@@ -30,6 +30,22 @@ namespace alpha::badgify {
         return Badges::get()->getDescription(id);
     }
 
+    void setCommentColor(geode::ZStringView id, cocos2d::ccColor3B color) {
+        Badges::get()->setCommentColor(id, color);
+    }
+
+    geode::Result<cocos2d::ccColor3B> getCommentColor(geode::ZStringView id) {
+        return Badges::get()->getCommentColor(id);
+    }
+
+    void setPriority(geode::ZStringView id, int priority) {
+        Badges::get()->setPriority(id, priority);
+    }
+
+    geode::Result<int> getPriority(geode::ZStringView id) {
+        return Badges::get()->getPriority(id);
+    }
+
     void setProfileCallback(geode::ZStringView id, ProfileCallback onProfile) {
         Badges::get()->setProfileCallback(id, std::move(onProfile));
     }

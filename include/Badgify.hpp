@@ -6,6 +6,7 @@
 #include <Geode/loader/Dispatch.hpp>
 #include <Geode/utils/ZStringView.hpp>
 #include <Geode/utils/cocos.hpp>
+#include <optional>
 
 #define MY_MOD_ID "alphalaneous.badgify"
 
@@ -40,6 +41,8 @@ namespace alpha::badgify {
         std::string name;
         std::string description;
         ProfileCallback onProfile;
+        std::optional<cocos2d::ccColor3B> color;
+        int priority = 0;
     };
 
     inline bool isLoaded() {
@@ -78,8 +81,20 @@ namespace alpha::badgify {
     inline void setDescription(geode::ZStringView id, geode::ZStringView description)
     GEODE_EVENT_EXPORT_NORES(&setDescription, (id, description));
 
-    inline geode::Result<geode::ZStringView> getDescription(geode::ZStringView id) 
+    inline geode::Result<geode::ZStringView> getDescription(geode::ZStringView id)
     GEODE_EVENT_EXPORT(&getDescription, (id));
+
+    inline void setCommentColor(geode::ZStringView id, cocos2d::ccColor3B color)
+    GEODE_EVENT_EXPORT_NORES(&setCommentColor, (id, color));
+
+    inline geode::Result<cocos2d::ccColor3B> getCommentColor(geode::ZStringView id)
+    GEODE_EVENT_EXPORT(&getCommentColor, (id));
+
+    inline void setPriority(geode::ZStringView id, int priority)
+    GEODE_EVENT_EXPORT_NORES(&setPriority, (id, priority));
+
+    inline geode::Result<int> getPriority(geode::ZStringView id)
+    GEODE_EVENT_EXPORT(&getPriority, (id));
 
     inline void setProfileCallback(geode::ZStringView id, ProfileCallback onProfile)
     GEODE_EVENT_EXPORT_NORES(&setProfileCallback, (id, std::move(onProfile)));

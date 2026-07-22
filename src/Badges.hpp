@@ -23,6 +23,14 @@ public:
     void setDescription(ZStringView id, ZStringView description);
     Result<ZStringView> getDescription(ZStringView id);
 
+    void setCommentColor(ZStringView id, cocos2d::ccColor3B color);
+    Result<cocos2d::ccColor3B> getCommentColor(ZStringView id);
+
+    void setPriority(ZStringView id, int priority);
+    Result<int> getPriority(ZStringView id);
+
+    std::optional<cocos2d::ccColor3B> resolveCommentColor(const std::vector<alpha::badgify::BadgeInfo*>& badges);
+
     void setProfileCallback(ZStringView id, alpha::badgify::ProfileCallback onProfile);
     void registerBadge(ZStringView id, ZStringView name, ZStringView description, alpha::badgify::ProfileCallback onProfile);
     void unregisterBadge(ZStringView id);

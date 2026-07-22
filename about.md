@@ -4,7 +4,7 @@ An API for adding badges to profiles and comments easily.
 
 ## The API
 
-It is extremely simple, here's an example on how to register and modify badge:
+The API is extremely simple to use, here's an example on how to register and modify a new badge:
 
 ```cpp
 // Important note: using this namespace is OPTIONAL!
@@ -55,13 +55,22 @@ $execute {
 }
 ```
 
-Setting comment colors and priority for custom badges is easier than ever.
+How to set comment color per badge:
 
 ```cpp
-// Comment color and badge prioroty are set AFTER a badge has been registered.
-// Attempting to set prio and color within registering WILl NOT WORK.
-Badges::get()->setCommentColor("your-badge-id"_spr, color);
-Badges::get()->setPriority("your-badge-id"_spr, int);
+// Setting different colors per badge.
+Badges::get()->setCommentColor("your-badge-id"_spr, color1);
+Badges::get()->setCommentColor("another-badge-id"_spr, color2);
 ```
 
-**Mod badge descriptions from https://www.robtopgames.com/faq/en/answers/moderator/**
+How to set badge priotiry:
+
+```cpp
+// Setting different priorities per badges.
+// These may overlap with other mods, and
+// that is NOT a Badgify issue to fix.
+Badges::get()->setPriority("your-badge-id"_spr, int1);
+Badges::get()->setPriority("another-badge-id"_spr, int2);
+```
+
+**Vanilla Moderator badge descriptions from the [Geometry Dash Mod Wiki](https://www.robtopgames.com/faq/en/answers/moderator/)**
