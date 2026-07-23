@@ -8,9 +8,9 @@
     },
     "id": "alphalaneous.badgify",
     "name": "Badgify",
-    "version": "v1.0.6",
-    "developers": ["Alphalaneous", "DasshuDev"],
-    "description": "Easy to use Badge API",
+    "version": "v1.0.7",
+    "developers": ["DasshuDev", "Alphalaneous"],
+    "description": "Easy to use API for adding custom badges!",
     "dependencies": {
         "geode.node-ids": ">=v1.20.0"
     },

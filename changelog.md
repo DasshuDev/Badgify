@@ -1,5 +1,5 @@
 # 1.0.7
-- Add badge Priority field per badge
+- Add Priority field per badge
 - Add Comment Color field per badge
 
 # 1.0.6
